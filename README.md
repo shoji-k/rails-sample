@@ -7,3 +7,7 @@ $ rails generate ckeditor:install --orm=active_record --backend=carrierwave
 $ vim app/assets/javascripts/application.js  
 $ vim config/initializers/ckeditor.rb  
 $ vim config/initializers/assets.rb  
+
+## ckeditor config
+
+$ app/assets/javascripts/ckeditor/config.js
