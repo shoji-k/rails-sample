@@ -26,3 +26,53 @@
   </div>
 <% end %>
 
+<button id="create">create by ajax</button>
+<button id="update">update by ajax</button>
+
+<script>
+
+$('#create').on('click', function() {
+  var data = {
+    // "_method": "post",
+    // "authenticity_token": $('input[name=authenticity_token]').val(),
+    editor: {title: 'create', body: '新規投稿された'}
+  };
+
+  $.ajax({
+    type: 'POST',
+    cache: false,
+    data: data,
+    url: '/editors.json',
+    dataType: 'json',
+    success: function(res){
+      console.log(res);
+    },
+    error: function(res){
+      console.log(res);
+      alert('エラーが発生しました');
+    }
+  });
+});
+$('#update').on('click', function() {
+  var data = {
+    // "_method": "put",
+    // "authenticity_token": $('input[name=authenticity_token]').val(),
+    editor: {title: 'update', body: 'アップデートされた'}
+  };
+
+  $.ajax({
+    type: 'PUT',
+    cache: false,
+    data: data,
+    url: '/editors/1.json',
+    dataType: 'json',
+    success: function(res){
+      console.log(res);
+    },
+    error: function(res){
+      console.log(res);
+      alert('エラーが発生しました');
+    }
+  });
+});
+</script>
