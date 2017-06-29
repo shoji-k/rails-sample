@@ -28,10 +28,12 @@
 
 <button id="create">create by ajax</button>
 <button id="update">update by ajax</button>
+<div id="loading"></div>
 
 <script>
 
 $('#create').on('click', function() {
+
   var data = {
     // "_method": "post",
     // "authenticity_token": $('input[name=authenticity_token]').val(),
@@ -54,12 +56,15 @@ $('#create').on('click', function() {
   });
 });
 $('#update').on('click', function() {
+
+  var body = window.CKEDITOR.instances['editor_body'].getData();
   var data = {
     // "_method": "put",
     // "authenticity_token": $('input[name=authenticity_token]').val(),
-    editor: {title: 'update', body: 'アップデートされた'}
+    editor: {title: 'update', body: body}
   };
 
+  $('#loading').html('<%= image_tag "loading.gif" %>');
   $.ajax({
     type: 'PUT',
     cache: false,
@@ -72,6 +77,9 @@ $('#update').on('click', function() {
     error: function(res){
       console.log(res);
       alert('エラーが発生しました');
+    },
+    complete: function(res) {
+      $('#loading').empty();
     }
   });
 });
