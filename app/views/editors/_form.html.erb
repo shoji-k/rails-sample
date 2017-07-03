@@ -26,14 +26,33 @@
   </div>
 <% end %>
 
-<button id="create">create by ajax</button>
-<button id="update">update by ajax</button>
+<p>
+  <button id="create">create by ajax</button>
+  <button id="update">update by ajax</button>
+</p>
+<p>
+  <button id="tex-to-html">tex to html</button>
+  <button id="html-to-tex">html to tex</button>
+</p>
 <div id="loading"></div>
 
 <script>
+var editor = window.CKEDITOR.instances['editor_body'];
+
+var change_flg = 0;
+editor.on('change', function() {
+  change_flg = 1;
+});
+
+// autosave
+setInterval(function() {
+  if (change_flg == 1) {
+    console.log(1);
+    change_flg = 0;
+  }
+}, 2000);
 
 $('#create').on('click', function() {
-
   var data = {
     // "_method": "post",
     // "authenticity_token": $('input[name=authenticity_token]').val(),
@@ -55,16 +74,16 @@ $('#create').on('click', function() {
     }
   });
 });
-$('#update').on('click', function() {
 
-  var body = window.CKEDITOR.instances['editor_body'].getData();
+var update = function() {
+  var body = editor.getData();
   var data = {
     // "_method": "put",
     // "authenticity_token": $('input[name=authenticity_token]').val(),
     editor: {title: 'update', body: body}
   };
 
-  $('#loading').html('<%= image_tag "loading.gif" %>');
+  $('#loading').html('<img src="/assets/loading-93e5d2e02937403763073af6f07ab2dad0402dee15c4b2a2cf0a0902151f440a.gif" alt="Loading" />');
   $.ajax({
     type: 'PUT',
     cache: false,
@@ -82,5 +101,7 @@ $('#update').on('click', function() {
       $('#loading').empty();
     }
   });
-});
+};
+
+$('#update').on('click', update);
 </script>
