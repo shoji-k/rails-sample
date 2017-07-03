@@ -37,71 +37,75 @@
 <div id="loading"></div>
 
 <script>
-var editor = window.CKEDITOR.instances['editor_body'];
+$(function() {
+  var AUTOSAVEINTERVAL = 2000;
+  var editor = window.CKEDITOR.instances['editor_body'];
 
-var change_flg = 0;
-editor.on('change', function() {
-  change_flg = 1;
-});
+  var change_flg = 0;
+  editor.on('change', function() {
+    change_flg = 1;
+  });
 
-// autosave
-setInterval(function() {
-  if (change_flg == 1) {
-    console.log(1);
-    change_flg = 0;
-  }
-}, 2000);
+  // autosave
+  setInterval(function() {
+    if (change_flg == 1) {
+      console.log(1);
+      change_flg = 0;
+      update();
+    }
+  }, AUTOSAVEINTERVAL);
 
-$('#create').on('click', function() {
-  var data = {
-    // "_method": "post",
-    // "authenticity_token": $('input[name=authenticity_token]').val(),
-    editor: {title: 'create', body: '新規投稿された'}
+  $('#create').on('click', function() {
+    var data = {
+      // "_method": "post",
+      // "authenticity_token": $('input[name=authenticity_token]').val(),
+      editor: {title: 'create', body: '新規投稿された'}
+    };
+
+    $.ajax({
+      type: 'POST',
+      cache: false,
+      data: data,
+      url: '/editors.json',
+      dataType: 'json',
+      success: function(res){
+        console.log(res);
+      },
+      error: function(res){
+        console.log(res);
+        alert('エラーが発生しました');
+      }
+    });
+  });
+
+  function update() {
+    var body = editor.getData();
+    var data = {
+      // "_method": "put",
+      // "authenticity_token": $('input[name=authenticity_token]').val(),
+      editor: {title: 'update', body: body}
+    };
+
+    $('#loading').html('<%= image_tag "loading.gif" %>');
+    $.ajax({
+      type: 'PUT',
+      cache: false,
+      data: data,
+      url: '/editors/1.json',
+      dataType: 'json',
+      success: function(res){
+        console.log(res);
+      },
+      error: function(res){
+        console.log(res);
+        alert('エラーが発生しました');
+      },
+      complete: function(res) {
+        $('#loading').empty();
+      }
+    });
   };
 
-  $.ajax({
-    type: 'POST',
-    cache: false,
-    data: data,
-    url: '/editors.json',
-    dataType: 'json',
-    success: function(res){
-      console.log(res);
-    },
-    error: function(res){
-      console.log(res);
-      alert('エラーが発生しました');
-    }
-  });
+  $('#update').on('click', update);
 });
-
-var update = function() {
-  var body = editor.getData();
-  var data = {
-    // "_method": "put",
-    // "authenticity_token": $('input[name=authenticity_token]').val(),
-    editor: {title: 'update', body: body}
-  };
-
-  $('#loading').html('<img src="/assets/loading-93e5d2e02937403763073af6f07ab2dad0402dee15c4b2a2cf0a0902151f440a.gif" alt="Loading" />');
-  $.ajax({
-    type: 'PUT',
-    cache: false,
-    data: data,
-    url: '/editors/1.json',
-    dataType: 'json',
-    success: function(res){
-      console.log(res);
-    },
-    error: function(res){
-      console.log(res);
-      alert('エラーが発生しました');
-    },
-    complete: function(res) {
-      $('#loading').empty();
-    }
-  });
-};
-
-$('#update').on('click', update);
 </script>
