@@ -15,10 +15,12 @@ class EditorsController < ApplicationController
   # GET /editors/new
   def new
     @editor = Editor.new
+    @ajaxUrl = nil
   end
 
   # GET /editors/1/edit
   def edit
+    @ajaxUrl = '/editors/' + params[:id] + '.json'
   end
 
   # POST /editors

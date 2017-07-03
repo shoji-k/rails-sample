@@ -1,3 +1,4 @@
+<p id="error"></p>
 <%= form_for(editor) do |f| %>
   <% if editor.errors.any? %>
     <div id="error_explanation">
@@ -34,17 +35,18 @@
   <button id="tex-to-html">tex to html</button>
   <button id="html-to-tex">html to tex</button>
 </p>
+<%= @id %>
 
 <script>
 $(function() {
   var AUTOSAVEINTERVAL = 2000;
   var editor = window.CKEDITOR.instances['editor_body'];
 
+<% if !@ajaxUrl.nil? %>
   var change_flg = 0;
   editor.on('change', function() {
     change_flg = 1;
   });
-
   // autosave
   setInterval(function() {
     if (change_flg == 1) {
@@ -53,6 +55,48 @@ $(function() {
       update();
     }
   }, AUTOSAVEINTERVAL);
+
+  function update() {
+    var that = this;
+    var title = $('#editor_title').val();
+    var body = editor.getData();
+
+    $('#error').text('');
+    if (! title) {
+      $('#error').text('タイトルを入力してください');
+      return false;
+    }
+
+    $(that).prop('disabled', true).append('<div id="spin" class="spinner"></div>');
+    $.ajax({
+      type: 'PUT',
+      cache: false,
+      data: {
+        editor: {title: title, body: body}
+      },
+      // url: '/editors/1.json',
+      url: '<%= @ajaxUrl %>',
+      dataType: 'json',
+      success: function(res){
+        $(that).after('<span id="result">保存されました</span>');
+      },
+      error: function(res){
+        console.log(res);
+      },
+      complete: function(res) {
+        $(that).prop('disabled', false);
+        $('#spin').fadeOut('slow', function() {
+          $(this).remove();
+        });
+        $('#result').fadeOut(3000, function() {
+          $(this).remove();
+        });
+      }
+    });
+  };
+
+  $('#update').on('click', update);
+<% end %>
 
   $('#create').on('click', function() {
     var data = {
@@ -74,38 +118,5 @@ $(function() {
     });
   });
 
-  function update() {
-    var that = this;
-    var body = editor.getData();
-    var data = {
-      editor: {title: 'update', body: body}
-    };
-
-    $(that).prop('disabled', true).append('<div id="spin" class="spinner"></div>');
-    $.ajax({
-      type: 'PUT',
-      cache: false,
-      data: data,
-      url: '/editors/1.json',
-      dataType: 'json',
-      success: function(res){
-        $(that).after('<span id="result">保存されました</span>');
-      },
-      error: function(res){
-        console.log(res);
-      },
-      complete: function(res) {
-        $(that).prop('disabled', false);
-        $('#spin').fadeOut('slow', function() {
-          $(this).remove();
-        });
-        $('#result').fadeOut(3000, function() {
-          $(this).remove();
-        });
-      }
-    });
-  };
-
-  $('#update').on('click', update);
 });
 </script>
