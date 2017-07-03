@@ -34,7 +34,6 @@
   <button id="tex-to-html">tex to html</button>
   <button id="html-to-tex">html to tex</button>
 </p>
-<div id="loading"></div>
 
 <script>
 $(function() {
@@ -57,8 +56,6 @@ $(function() {
 
   $('#create').on('click', function() {
     var data = {
-      // "_method": "post",
-      // "authenticity_token": $('input[name=authenticity_token]').val(),
       editor: {title: 'create', body: '新規投稿された'}
     };
 
@@ -73,20 +70,18 @@ $(function() {
       },
       error: function(res){
         console.log(res);
-        alert('エラーが発生しました');
       }
     });
   });
 
   function update() {
+    var that = this;
     var body = editor.getData();
     var data = {
-      // "_method": "put",
-      // "authenticity_token": $('input[name=authenticity_token]').val(),
       editor: {title: 'update', body: body}
     };
 
-    $('#loading').html('<%= image_tag "loading.gif" %>');
+    $(that).prop('disabled', true).append('<div id="spin" class="spinner"></div>');
     $.ajax({
       type: 'PUT',
       cache: false,
@@ -94,14 +89,19 @@ $(function() {
       url: '/editors/1.json',
       dataType: 'json',
       success: function(res){
-        console.log(res);
+        $(that).after('<span id="result">保存されました</span>');
       },
       error: function(res){
         console.log(res);
-        alert('エラーが発生しました');
       },
       complete: function(res) {
-        $('#loading').empty();
+        $(that).prop('disabled', false);
+        $('#spin').fadeOut('slow', function() {
+          $(this).remove();
+        });
+        $('#result').fadeOut(3000, function() {
+          $(this).remove();
+        });
       }
     });
   };
