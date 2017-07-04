@@ -35,14 +35,13 @@
   <button id="tex-to-html">tex to html</button>
   <button id="html-to-tex">html to tex</button>
 </p>
-<%= @id %>
 
 <script>
 $(function() {
   var AUTOSAVEINTERVAL = 2000;
   var editor = window.CKEDITOR.instances['editor_body'];
 
-<% if !@ajaxUrl.nil? %>
+  <% if !@ajaxUrl.nil? %>
   var change_flg = 0;
   editor.on('change', function() {
     change_flg = 1;
@@ -74,7 +73,6 @@ $(function() {
       data: {
         editor: {title: title, body: body}
       },
-      // url: '/editors/1.json',
       url: '<%= @ajaxUrl %>',
       dataType: 'json',
       success: function(res){
@@ -96,7 +94,7 @@ $(function() {
   };
 
   $('#update').on('click', update);
-<% end %>
+  <% end %>
 
   $('#create').on('click', function() {
     var data = {
