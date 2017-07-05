@@ -22,19 +22,19 @@
     <%= f.cktext_area :body %>
   </div>
 
+  <div class="field">
+    <%= f.label :tex %>
+    <%= f.text_area :tex %>
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
 
-<p>
-  <button id="create">create by ajax</button>
-  <button id="update">update by ajax</button>
-</p>
-<p>
-  <button id="tex-to-html">tex to html</button>
-  <button id="html-to-tex">html to tex</button>
-</p>
+<button id="update">update by ajax</button>
+<button id="tex-to-html">tex to html</button>
+<button id="html-to-tex">html to tex</button>
 
 <script>
 $(function() {
@@ -95,26 +95,5 @@ $(function() {
 
   $('#update').on('click', update);
   <% end %>
-
-  $('#create').on('click', function() {
-    var data = {
-      editor: {title: 'create', body: '新規投稿された'}
-    };
-
-    $.ajax({
-      type: 'POST',
-      cache: false,
-      data: data,
-      url: '/editors.json',
-      dataType: 'json',
-      success: function(res){
-        console.log(res);
-      },
-      error: function(res){
-        console.log(res);
-      }
-    });
-  });
-
 });
 </script>
