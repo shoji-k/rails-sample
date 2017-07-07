@@ -21,6 +21,7 @@ class EditorsController < ApplicationController
   # GET /editors/1/edit
   def edit
     @ajaxUrl = '/editors/' + params[:id] + '.json'
+    @test = File.read("#{Rails.root}/sample.tex").chomp
   end
 
   # POST /editors
