@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :microposts
   mount Ckeditor::Engine => '/ckeditor'
   resources :editors
   resources :users
