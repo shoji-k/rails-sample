@@ -10,12 +10,12 @@ Rails.application.routes.draw do
   get  '/contact', to: 'static_pages#contact'
   get  '/signup', to: 'users#new'
 
-  resources :microposts
   mount Ckeditor::Engine => '/ckeditor'
   resources :editors
   resources :users
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
+  resources :microposts,          only: [:create, :destroy]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   # root 'editors#index'
 end
