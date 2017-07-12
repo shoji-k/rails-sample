@@ -21,6 +21,7 @@ Rails.application.routes.draw do
       get :following, :followers
     end
   end
+  resources :relationships,       only: [:create, :destroy]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   # root 'editors#index'
 end
