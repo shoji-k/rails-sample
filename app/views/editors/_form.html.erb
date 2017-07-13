@@ -1,7 +1,7 @@
 <p id="error"></p>
 
 <label class="checkbox-inline">
-  <input type="checkbox" checked data-toggle="toggle" data-on="LaTex code" data-off="view" data-onstyle="primary" data-offstyle="danger">
+  <input id="toggle-body" type="checkbox" checked data-toggle="toggle" data-on="LaTex code" data-off="view" data-onstyle="primary" data-offstyle="danger">
 </label>
 <%= form_for(editor) do |f| %>
   <% if editor.errors.any? %>
@@ -42,6 +42,15 @@
 
 <script>
 $(function() {
+  $('#toggle-body').change(function() {
+    var latex_mode = $(this).prop('checked');
+    if (latex_mode) {
+      console.log('latex mode');
+    } else {
+      console.log('html mode');
+    }
+  });
+
   var AUTOSAVEINTERVAL = 2000;
   var editor = window.CKEDITOR.instances['editor_body'];
 
