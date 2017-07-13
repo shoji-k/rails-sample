@@ -1,8 +1,11 @@
 # railstutorial
 
-need to install imagemagic
+railstutorial(https://railstutorial.jp) was done  
+need to install imagemagic  
 
 # ckeditor
+
+tried to use ckeditor
 
 see [https://github.com/galetahub/ckeditor](https://github.com/galetahub/ckeditor)  
 
