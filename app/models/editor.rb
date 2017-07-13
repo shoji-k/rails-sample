@@ -11,4 +11,8 @@ class Editor < ApplicationRecord
     def convert(str)
       PandocRuby.convert(str, :from => :html, :to => :latex)
     end
+
+    def convert2(str)
+      PandocRuby.convert(str, :from => :latex, :to => :html5)
+    end
 end

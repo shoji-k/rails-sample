@@ -44,3 +44,4 @@ gem 'ckeditor'
 # gem 'mini_magick'
 
 gem 'pandoc-ruby'
+gem 'bootstrap-toggle-rails'

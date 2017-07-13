@@ -1,4 +1,8 @@
 <p id="error"></p>
+
+<label class="checkbox-inline">
+  <input type="checkbox" checked data-toggle="toggle" data-on="LaTex code" data-off="view" data-onstyle="primary" data-offstyle="danger">
+</label>
 <%= form_for(editor) do |f| %>
   <% if editor.errors.any? %>
     <div id="error_explanation">
