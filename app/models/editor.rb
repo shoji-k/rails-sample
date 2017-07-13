@@ -5,10 +5,10 @@ class Editor < ApplicationRecord
   private
 
     def set_tex
-      self.tex = change(self.body)
+      self.tex = convert(self.body)
     end
 
-    def change(txt)
-      txt
+    def convert(str)
+      PandocRuby.convert(str, :from => :html, :to => :latex)
     end
 end

@@ -18,3 +18,8 @@ $ vim config/initializers/assets.rb
 ## ckeditor config
 
 $ app/assets/javascripts/ckeditor/config.js
+
+# pandoc
+
+need to install pandoc  
+e.g. sudo apt install pandoc  
