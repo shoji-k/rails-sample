@@ -114,8 +114,16 @@ $(function() {
   $('#update').on('click', update);
   <% end %>
 
-  $(document).on('turbolinks:render', function() {
+  $(document).on('turbolinks:load', function() {
     $('input[type="checkbox"].toggle').bootstrapToggle();
   });
 });
+(function($){
+  'use strict';
+  $.fn.ready = function(func){
+    $(document).on('turbolinks:load', function () {
+      func($);
+    });
+  };
+})(jQuery);
 </script>
