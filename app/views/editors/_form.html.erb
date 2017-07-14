@@ -3,7 +3,7 @@
 <%= form_for(editor) do |f| %>
 
   <label class="checkbox-inline">
-    <%= check_box_tag :togglebody, 1, true, data: { "toggle" => "toggle", "on" => "LaTex code", "off" => "view", "onstyle" => "primary", "offstyle" => "danger" } %>
+    <%= check_box_tag "editor[input_mode]", 1, true, data: { toggle: "toggle", on: "LaTex code", off: "view", onstyle: "primary", offstyle: "danger" } %>
   </label>
 
   <% if editor.errors.any? %>

@@ -1,18 +1,23 @@
 class Editor < ApplicationRecord
+  attr_accessor :input_mode # 1: tex, 0: html
   validates :title,  presence: true, length: { maximum: 50 }
-  before_save   :set_tex
+  before_save   :convert
 
   private
 
-    def set_tex
-      self.tex = convert(self.body)
+    def convert
+      if input_mode.to_i == 1 then
+        self.tex = html_to_tex(body)
+      else
+        self.body = tex_to_html(tex)
+      end
     end
 
-    def convert(str)
+    def html_to_tex(str)
       PandocRuby.convert(str, :from => :html, :to => :latex)
     end
 
-    def convert2(str)
+    def tex_to_html(str)
       PandocRuby.convert(str, :from => :latex, :to => :html5)
     end
 end
