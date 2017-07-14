@@ -1,9 +1,11 @@
 <p id="error"></p>
 
-<label class="checkbox-inline">
-  <input id="toggle-body" type="checkbox" checked data-toggle="toggle" data-on="LaTex code" data-off="view" data-onstyle="primary" data-offstyle="danger">
-</label>
 <%= form_for(editor) do |f| %>
+
+  <label class="checkbox-inline">
+    <%= check_box_tag :togglebody, 1, true, data: { "toggle" => "toggle", "on" => "LaTex code", "off" => "view", "onstyle" => "primary", "offstyle" => "danger" } %>
+  </label>
+
   <% if editor.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(editor.errors.count, "error") %> prohibited this editor from being saved:</h2>
