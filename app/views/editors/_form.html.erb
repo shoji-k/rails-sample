@@ -32,6 +32,18 @@
   </div>
 
   <div class="field">
+    <button id="history-back" class="btn btn-default">◀︎</button>
+    <button id="history-forward" class="btn btn-default">▶︎︎</button>
+    <button class="btn btn-default" data-toggle="button" aria-pressed="false" autocomplete="off"><b>b</b></button>
+    <button class="btn btn-default">pt</button>
+    <button class="btn btn-default">font</button>
+    <button class="btn btn-default" data-toggle="button" aria-pressed="false" autocomplete="off"><i>italic</i></button>
+    <button class="btn btn-default" data-toggle="button" aria-pressed="false" autocomplete="off"><u>underline</u></button>
+    <button class="btn btn-default" data-toggle="button" aria-pressed="false" autocomplete="off"><li>list</li></button>
+    <button class="btn btn-default">insert</button>
+  </div>
+
+  <div class="field">
     <%= f.label :tex %>
     <%= f.text_area :tex, id: 'tex_editor' %>
   </div>
@@ -96,12 +108,20 @@ $(function() {
     $('input[type="checkbox"].toggle').bootstrapToggle();
   });
 
- var tex_editor = CodeMirror.fromTextArea(document.getElementById('tex_editor'), {
+  var tex = CodeMirror.fromTextArea(document.getElementById('tex_editor'), {
     mode: "text/x-stex",
     lineNumbers: true,
     indentUnit: 4,
     dragDrop: true,
     viewportMargin: 100,
+  });
+
+  var doc = tex.getDoc();
+  $('#history-back').on('click', function() {
+    doc.undo();
+  });
+  $('#history-forward').on('click', function() {
+    doc.redo();
   });
 });
 (function($){
