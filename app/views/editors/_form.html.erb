@@ -33,7 +33,7 @@
 
   <div class="field">
     <%= f.label :tex %>
-    <%= f.text_area :tex %>
+    <%= f.text_area :tex, id: 'tex_editor' %>
   </div>
 
   <div class="actions update-box">
@@ -94,6 +94,14 @@ $(function() {
 
   $(document).on('turbolinks:load', function() {
     $('input[type="checkbox"].toggle').bootstrapToggle();
+  });
+
+ var tex_editor = CodeMirror.fromTextArea(document.getElementById('tex_editor'), {
+    mode: "text/x-stex",
+    lineNumbers: true,
+    indentUnit: 4,
+    dragDrop: true,
+    viewportMargin: 100,
   });
 });
 (function($){

@@ -45,3 +45,4 @@ gem 'ckeditor'
 
 gem 'pandoc-ruby'
 gem 'bootstrap-toggle-rails'
+gem 'codemirror-rails'
