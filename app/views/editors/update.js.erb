@@ -1,0 +1,8 @@
+$('#update').after('<span id="result">保存されました</span>')
+  .prop('disabled', false);
+$('#spin').fadeOut('slow', function() {
+  $(this).remove();
+});
+$('#result').fadeOut(3000, function() {
+  $(this).remove();
+});

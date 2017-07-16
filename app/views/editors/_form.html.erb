@@ -1,6 +1,6 @@
 <p id="error"></p>
 
-<%= form_for(editor) do |f| %>
+<%= form_for(editor, remote: true) do |f| %>
 
   <label class="checkbox-inline">
     <%= check_box_tag "editor[input_mode]", 1, true,
@@ -36,12 +36,12 @@
     <%= f.text_area :tex %>
   </div>
 
-  <div class="actions">
-    <%= f.submit %>
+  <div class="actions update-box">
+    <%= f.submit 'Update Editor', id: 'update' %>
   </div>
 <% end %>
 
-<button id="update">update by ajax</button>
+<!-- <button id="update">update by ajax</button> -->
 <button id="tex-to-html">tex to html</button>
 <button id="html-to-tex">html to tex</button>
 
@@ -84,31 +84,9 @@ $(function() {
       return false;
     }
 
-    $(that).prop('disabled', true).append('<div id="spin" class="spinner"></div>');
-    $.ajax({
-      type: 'PUT',
-      cache: false,
-      data: {
-        editor: {title: title, body: body}
-      },
-      url: '<%= @ajaxUrl %>',
-      dataType: 'json',
-      success: function(res){
-        $(that).after('<span id="result">保存されました</span>');
-      },
-      error: function(res){
-        console.log(res);
-      },
-      complete: function(res) {
-        $(that).prop('disabled', false);
-        $('#spin').fadeOut('slow', function() {
-          $(this).remove();
-        });
-        $('#result').fadeOut(3000, function() {
-          $(this).remove();
-        });
-      }
-    });
+    $(this).prop('disabled', true)
+      .after('<div id="spin" class="spinner"></div>')
+      .submit();
   };
 
   $('#update').on('click', update);

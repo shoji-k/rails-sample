@@ -46,10 +46,12 @@ class EditorsController < ApplicationController
     respond_to do |format|
       if @editor.update(editor_params)
         format.html { redirect_to @editor, notice: 'Editor was successfully updated.' }
-        format.json { render :show, status: :ok, location: @editor }
+        #format.json { render :show, status: :ok, location: @editor }
+        format.js
       else
         format.html { render :edit }
-        format.json { render json: @editor.errors, status: :unprocessable_entity }
+        #format.json { render json: @editor.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
