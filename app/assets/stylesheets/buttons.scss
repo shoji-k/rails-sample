@@ -1,10 +1,14 @@
 .CodeMirror-buttonsPanel {
-    margin-bottom: .5em;
+  margin-bottom: .5em;
 }
 
 .CodeMirror-buttonsPanel button {
-    padding: .5em;
-    width: 4em;
-    margin-right: .5em;
-    text-align: center;
+  padding: .5em;
+  width: 4em;
+  margin-right: .5em;
+  text-align: center;
+}
+
+.CodeMirror-buttonsPanel button.underline {
+  width: 8em;
 }

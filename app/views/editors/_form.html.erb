@@ -32,18 +32,6 @@
   </div>
 
   <div class="field">
-    <button type="button" id="history-back" class="btn btn-default">◀︎</button>
-    <button type="button" id="history-forward" class="btn btn-default">▶︎︎</button>
-    <button type="button" class="btn btn-default" data-toggle="button" aria-pressed="false" autocomplete="off"><b>b</b></button>
-    <button type="button" class="btn btn-default">pt</button>
-    <button type="button" class="btn btn-default">font</button>
-    <button type="button" class="btn btn-default" data-toggle="button" aria-pressed="false" autocomplete="off"><i>italic</i></button>
-    <button type="button" class="btn btn-default" data-toggle="button" aria-pressed="false" autocomplete="off"><u>underline</u></button>
-    <button type="button" class="btn btn-default" data-toggle="button" aria-pressed="false" autocomplete="off"><li>list</li></button>
-    <button type="button" class="btn btn-default">insert</button>
-  </div>
-
-  <div class="field">
     <%= f.label :tex %>
     <%= f.text_area :tex, id: 'tex_editor' %>
   </div>
@@ -157,7 +145,7 @@ $(function() {
         }
       },
       {
-        class: 'btn btn-default',
+        class: 'btn btn-default font',
         label: 'font',
         callback: function (cm) {
         var selection = cm.getSelection();
@@ -182,7 +170,7 @@ $(function() {
         }
       },
       {
-        class: 'btn btn-default',
+        class: 'btn btn-default underline',
         label: '<u>underline</u>',
         callback: function (cm) {
         var selection = cm.getSelection();
