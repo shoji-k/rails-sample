@@ -16,5 +16,6 @@
 //= require bootstrap-toggle
 //= require ckeditor/init
 //= require codemirror
+//= require codemirror/addons/display/panel
 //= require turbolinks
 //= require_tree .
