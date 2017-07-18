@@ -145,6 +145,30 @@ $(function() {
         }
       },
       {
+        class: 'btn btn-default',
+        label: 'pt',
+        callback: function (cm) {
+        var selection = cm.getSelection();
+          cm.replaceSelection('{\\fontsize{10pt}{0pt}\\selectfont ' + selection + '}');
+          if (!selection) {
+            var cursorPos = cm.getCursor();
+            cm.setCursor(cursorPos.line, cursorPos.ch - 1);
+          }
+        }
+      },
+      {
+        class: 'btn btn-default',
+        label: 'font',
+        callback: function (cm) {
+        var selection = cm.getSelection();
+          cm.replaceSelection('\\usepackage{ ' + selection + '}');
+          if (!selection) {
+            var cursorPos = cm.getCursor();
+            cm.setCursor(cursorPos.line, cursorPos.ch - 1);
+          }
+        }
+      },
+      {
         hotkey: 'Ctrl-I',
         class: 'btn btn-default italic',
         label: '<i>italic</i>',
@@ -158,83 +182,31 @@ $(function() {
         }
       },
       {
-          class: 'inline-code',
-          label: 'code',
-          callback: function (cm) {
-              var selection = cm.getSelection();
-              cm.replaceSelection("`" + selection + "`");
-              if (!selection) {
-                  var cursorPos = cm.getCursor();
-                  cm.setCursor(cursorPos.line, cursorPos.ch - 1);
-              }
-          }
-      },
-      {
-          class: 'block-php',
-          label: '&lt;php&gt;',
-          callback: function (cm) {
-              var selection = cm.getSelection();
-              cm.replaceSelection("```php\n<?php\n" + selection + "\n```\n");
-              if (!selection) {
-                  var cursorPos = cm.getCursor();
-                  cm.setCursor(cursorPos.line - 2, 0);
-              }
-          }
-      },
-      {
-        class: 'block-code',
-        label: '&lt;-&gt;',
+        class: 'btn btn-default',
+        label: '<u>underline</u>',
         callback: function (cm) {
-          var selection = cm.getSelection();
-          cm.replaceSelection("```\n" + selection + "\n```\n");
+        var selection = cm.getSelection();
+          cm.replaceSelection('\\[\n \\underline{ ' + selection + '}\n\\]');
           if (!selection) {
             var cursorPos = cm.getCursor();
-            cm.setCursor(cursorPos.line - 2, 0);
+            cm.setCursor(cursorPos.line - 1, 13);
           }
         }
       },
       {
-        class: 'quote',
-        label: '>',
+        class: 'btn btn-default ul',
+        label: '・list',
         callback: function (cm) {
-          cm.replaceSelection("> " + cm.getSelection());
+          var str = '\\begin{itemize}\n \\item ' + cm.getSelection() + '\n \\item \n\\end{itemize}';
+          cm.replaceSelection(str);
         }
       },
       {
-        class: 'ul',
-        label: 'ul',
+        class: 'btn btn-default ol',
+        label: '1. list',
         callback: function (cm) {
-          cm.replaceSelection("- " + cm.getSelection());
-        }
-      },
-      {
-        class: 'ol',
-        label: 'ol',
-        callback: function (cm) {
-          cm.replaceSelection("1. " + cm.getSelection());
-        }
-      },
-      {
-        class: 'a',
-        label: 'a',
-        callback: function (cm) {
-          var selection = cm.getSelection();
-          var text = '';
-          var link = '';
-          if (selection.match(/^https?:\/\//)) {
-            link = selection;
-          } else {
-            text = selection;
-          }
-          cm.replaceSelection('[' + text + '](' + link + ')');
-          var cursorPos = cm.getCursor();
-          if (!selection) {
-            cm.setCursor(cursorPos.line, cursorPos.ch - 3);
-          } else if (link) {
-            cm.setCursor(cursorPos.line, cursorPos.ch - (3 + link.length));
-          } else {
-            cm.setCursor(cursorPos.line, cursorPos.ch - 1);
-          }
+          var str = '\\begin{enumerate}\n \\item ' + cm.getSelection() + '\n \\item \n\\end{enumerate}';
+          cm.replaceSelection(str);
         }
       }
     ]
