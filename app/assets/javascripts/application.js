@@ -17,5 +17,10 @@
 //= require ckeditor/init
 //= require codemirror
 //= require codemirror/addons/display/panel
+//= require codemirror/addons/dialog/dialog
+//= require codemirror/addons/search/searchcursor
+//= require codemirror/addons/search/search
+//= require codemirror/addons/scroll/annotatescrollbar
+//= require codemirror/addons/search/matchesonscrollbar
 //= require turbolinks
 //= require_tree .

@@ -196,6 +196,13 @@ $(function() {
           var str = '\\begin{enumerate}\n \\item ' + cm.getSelection() + '\n \\item \n\\end{enumerate}';
           cm.replaceSelection(str);
         }
+      },
+      {
+        class: 'btn btn-default replace',
+        label: 'replace',
+        callback: function (cm) {
+          cm.execCommand('replace');
+        }
       }
     ]
   });

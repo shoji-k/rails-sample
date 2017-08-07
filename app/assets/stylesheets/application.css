@@ -12,5 +12,6 @@
  *
  *= require_tree .
  *= require codemirror
+ *= require codemirror/addons/dialog/dialog
  *= require_self
  */
