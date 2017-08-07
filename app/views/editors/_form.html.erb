@@ -198,6 +198,13 @@ $(function() {
         }
       },
       {
+        class: 'btn btn-default find',
+        label: 'find',
+        callback: function (cm) {
+          cm.execCommand('find');
+        }
+      },
+      {
         class: 'btn btn-default replace',
         label: 'replace',
         callback: function (cm) {
