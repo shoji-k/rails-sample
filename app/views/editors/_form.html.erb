@@ -210,6 +210,14 @@ $(function() {
         callback: function (cm) {
           cm.execCommand('replace');
         }
+      },
+      {
+        class: 'btn btn-default image',
+        label: 'image',
+        callback: function (cm) {
+          var str = '\\begin{figure}[h]\n \\includegraphics[]{}\n \\caption{}\n \\label{}\n\\end{figure}';
+          cm.replaceSelection(str);
+        }
       }
     ]
   });
