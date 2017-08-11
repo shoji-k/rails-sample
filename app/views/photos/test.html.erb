@@ -1,0 +1,82 @@
+<button id="file_btn">file</button>
+<%= form_for Photo.new, :html => { :multipart => true, :id => "fileupload"  } do |f| %>
+<!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+<div class="row fileupload-buttonbar">
+  <div class="span7">
+    <%= f.text_field :document_id %>
+    <!-- The fileinput-button span is used to style the file input field as button -->
+    <span class="btn btn-success fileinput-button">
+      <i class="icon-plus icon-white"></i>
+      <span>Add files...</span>
+      <%= f.file_field :name %>
+    </span>
+    <button type="submit" class="btn btn-primary start">
+      <i class="icon-upload icon-white"></i>
+      <span>Start upload</span>
+    </button>
+    <button type="reset" class="btn btn-warning cancel">
+      <i class="icon-ban-circle icon-white"></i>
+      <span>Cancel upload</span>
+    </button>
+    <button type="button" class="btn btn-danger delete">
+      <i class="icon-trash icon-white"></i>
+      <span>Delete</span>
+    </button>
+    <input type="checkbox" class="toggle">
+  </div>
+
+
+  <div class="span5">
+    <div id="progress" class="progress">
+        <div class="progress-bar progress-bar-success"></div>
+    </div>
+    <!-- The global progress bar -->
+    <!-- <div class="progress progress&#45;success progress&#45;striped active fade"> -->
+    <!--   <div class="bar" style="width:0%;"></div> -->
+    <!-- </div> -->
+  </div>
+</div>
+<!-- The loading indicator is shown during image processing -->
+<div class="fileupload-loading"></div>
+<br>
+<!-- The table listing the files available for upload/download -->
+<!-- The container for the uploaded files -->
+<div id="files" class="files"></div>
+
+<table class="table table-striped">
+<tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery">
+</tbody>
+</table>
+<% end %>
+
+<script type="text/javascript">
+$(function () {
+  'use strict';
+  // Change this to the location of your server-side upload handler:
+  var url = $('#fileupload').prop('action');
+  $('#fileupload').fileupload({
+    url: url,
+    dataType: 'json',
+    done: function (e, data) {
+      console.log(data);
+      $.each(data.result, function (index, file) {
+        $('<p/>').text(file.name + ' [' + file.url + ']').appendTo('#files');
+      });
+    },
+    progressall: function (e, data) {
+      var progress = parseInt(data.loaded / data.total * 100, 10);
+      $('#progress .progress-bar').css(
+        'width',
+        progress + '%'
+      );
+    }
+  }).prop('disabled', !$.support.fileInput)
+    .parent().addClass($.support.fileInput ? undefined : 'disabled');
+
+  $('#file_btn').on('click', function() {
+    $('#photo_name').click();
+  });;
+
+});
+</script>
+

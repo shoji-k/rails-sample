@@ -22,5 +22,6 @@
 //= require codemirror/addons/search/search
 //= require codemirror/addons/scroll/annotatescrollbar
 //= require codemirror/addons/search/matchesonscrollbar
+//= require jquery-fileupload/basic
 //= require turbolinks
 //= require_tree .
