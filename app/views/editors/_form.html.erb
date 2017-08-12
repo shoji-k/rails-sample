@@ -1,6 +1,6 @@
 <style>
 .cke_top {
-  display: none;
+  /* display: none; */
 }
 </style>
 
@@ -14,7 +14,7 @@
   </div>
   <div class="span5">
     <div id="progress" class="progress">
-        <div class="progress-bar progress-bar-success"></div>
+      <div class="progress-bar progress-bar-success"></div>
     </div>
   </div>
 </div>
@@ -315,35 +315,47 @@ $(function() {
     });
   }
 
+  var changed_class = 'btn-primary';
+  var flipbutton = function(dom) {
+    if (dom.hasClass('btn-default')) {
+      dom.addClass(changed_class).removeClass('btn-default');
+    } else {
+      dom.addClass('btn-default').removeClass(changed_class);
+    }
+  };
   $('#ck_back').on('click', function() {
-    $('#cke_87').click();
+    $('.cke_button__undo').eq(0).click();
   });
   $('#ck_forward').on('click', function() {
-    $('#cke_88').click();
+    $('.cke_button__redo').eq(0).click();
   });
   $('#ck_bold').on('click', function() {
-    $('#cke_94').click();
+    var btn = $('.cke_button__bold').eq(0);
+    btn.click();
+    flipbutton($(this));
   });
   $('#ck_italic').on('click', function() {
-    $('#cke_95').click();
+    $('.cke_button__italic').eq(0).click();
+    flipbutton($(this));
   });
   $('#ck_underline').on('click', function() {
-    $('#cke_96').click();
+    $('.cke_button__underline').eq(0).click();
+    flipbutton($(this));
   });
   $('#ck_ul').on('click', function() {
-    $('#cke_91').click();
+    $('.cke_button__bulletedlist').eq(0).click();
   });
   $('#ck_ol').on('click', function() {
-    $('#cke_26').click();
+    $('.cke_button__numberedlist').eq(0).click();
   });
   $('#ck_find').on('click', function() {
-    // todo:
+    $('.cke_button__find').eq(0).click();
   });
   $('#ck_replace').on('click', function() {
-    // todo:
+    $('.cke_button__replace').eq(0).click();
   });
   $('#ck_image').on('click', function() {
-    $('#cke_102').click();
+    $('.cke_button__image').eq(0).click();
   });
 });
 (function($){
