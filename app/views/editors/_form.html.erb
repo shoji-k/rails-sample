@@ -44,6 +44,17 @@
 
   <div class="field">
     <%= f.label :body %>
+    <%= button_tag "◀", type: 'button', id: 'ck_back', class: 'btn btn-default', tabindex: -1 %>
+    <%= button_tag "▶", type: 'button', id: 'ck_forward', class: 'btn btn-default', tabindex: -1 %>
+    <%= button_tag "<b>b</b>".html_safe, type: 'button', id: 'ck_bold', class: 'btn btn-default', tabindex: -1 %>
+    <%= button_tag "<i>italic</i>".html_safe, type: 'button', id: 'ck_italic', class: 'btn btn-default', tabindex: -1 %>
+    <%= button_tag "<u>underline</u>".html_safe, type: 'button', id: 'ck_underline', class: 'btn btn-default', tabindex: -1 %>
+    <%= button_tag "・list", type: 'button', id: 'ck_ul', class: 'btn btn-default', tabindex: -1 %>
+    <%= button_tag "1.list", type: 'button', id: 'ck_ol', class: 'btn btn-default', tabindex: -1 %>
+    <%= button_tag "find", type: 'button', id: 'ck_find', class: 'btn btn-default', tabindex: -1 %>
+    <%= button_tag "replace", type: 'button', id: 'ck_replace', class: 'btn btn-default', tabindex: -1 %>
+    <%= button_tag "image", type: 'button', id: 'ck_image', class: 'btn btn-default', tabindex: -1 %>
+    <%= button_tag "abstract", type: 'button', id: 'ck_abstract', class: 'btn btn-default', tabindex: -1 %>
     <%= f.cktext_area :body %>
   </div>
 
@@ -236,8 +247,8 @@ $(function() {
         }
       },
       {
-        class: 'btn btn-default abstruct',
-        label: 'image',
+        class: 'btn btn-default abstract',
+        label: 'abstract',
         callback: function (cm) {
           var str = '\\begin{abstract}' + cm.getSelection() + '\\end{abstract}';
           cm.replaceSelection(str);
@@ -297,6 +308,37 @@ $(function() {
       }
     });
   }
+
+  $('#ck_back').on('click', function() {
+    $('#cke_87').click();
+  });
+  $('#ck_forward').on('click', function() {
+    $('#cke_88').click();
+  });
+  $('#ck_bold').on('click', function() {
+    $('#cke_94').click();
+  });
+  $('#ck_italic').on('click', function() {
+    $('#cke_95').click();
+  });
+  $('#ck_underline').on('click', function() {
+    $('#cke_96').click();
+  });
+  $('#ck_ul').on('click', function() {
+    $('#cke_91').click();
+  });
+  $('#ck_ol').on('click', function() {
+    $('#cke_26').click();
+  });
+  $('#ck_find').on('click', function() {
+    // todo:
+  });
+  $('#ck_replace').on('click', function() {
+    // todo:
+  });
+  $('#ck_image').on('click', function() {
+    $('#cke_102').click();
+  });
 });
 (function($){
   'use strict';
@@ -306,7 +348,5 @@ $(function() {
     });
   };
 })(jQuery);
-$(function () {
-});
 </script>
 
