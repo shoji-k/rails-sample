@@ -1,5 +1,21 @@
 <p id="error"></p>
 
+<%= form_for Photo.new, :html => { :multipart => true, :id => "fileupload"  } do |f| %>
+<div class="row fileupload-buttonbar">
+  <div class="span7">
+    <%= f.text_field :document_id %>
+    <%= f.file_field :name %>
+  </div>
+  <div class="span5">
+    <div id="progress" class="progress">
+        <div class="progress-bar progress-bar-success"></div>
+    </div>
+  </div>
+</div>
+<br>
+<div id="files" class="files"></div>
+<% end %>
+<div id="modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
 <%= form_for(editor, remote: true) do |f| %>
 
   <label class="checkbox-inline">
@@ -46,6 +62,7 @@
 <button id="html-to-tex">html to tex</button>
 
 <script>
+'use strict';
 $(function() {
   $('#toggle-body').change(function() {
     var latex_mode = $(this).prop('checked');
@@ -215,7 +232,14 @@ $(function() {
         class: 'btn btn-default image',
         label: 'image',
         callback: function (cm) {
-          var str = '\\begin{figure}[h]\n \\includegraphics[]{}\n \\caption{}\n \\label{}\n\\end{figure}';
+          $('#photo_name').click();
+        }
+      },
+      {
+        class: 'btn btn-default abstruct',
+        label: 'image',
+        callback: function (cm) {
+          var str = '\\begin{abstract}' + cm.getSelection() + '\\end{abstract}';
           cm.replaceSelection(str);
         }
       }
@@ -229,6 +253,50 @@ $(function() {
   $('#history-forward').on('click', function() {
     doc.redo();
   });
+
+  var url = $('#fileupload').prop('action');
+  $('#fileupload').fileupload({
+    url: url,
+    dataType: 'json',
+    done: function (e, data) {
+      console.log(data);
+      $.each(data.result, function (index, file) {
+        var str = '\\begin{figure}[h]\n \\includegraphics['+file.url+']{}\n \\caption{}\n \\label{}\n\\end{figure}';
+        tex.replaceSelection(str);
+        $('<p/>').text(file.name + ' [' + file.url + ']').appendTo('#files');
+      });
+    },
+    progressall: function (e, data) {
+      var progress = parseInt(data.loaded / data.total * 100, 10);
+      $('#progress .progress-bar').css(
+        'width',
+        progress + '%'
+      );
+    }
+  }).prop('disabled', !$.support.fileInput)
+    .parent().addClass($.support.fileInput ? undefined : 'disabled');
+
+  $('#show_btn').on('click', function() {
+    get_all_photos();
+  });
+
+  function get_all_photos() {
+    $.ajax({
+      type: 'GET',
+      cache: false,
+      url: '/photos',
+      dataType: 'json',
+      success: function(res){
+        console.log(res);
+        $.each(res['files'], function(i, p) {
+          $('#photos').append($('<li></li>').append(p.name));
+        });
+      },
+      error: function(res){
+        alert('エラーが発生しました');
+      }
+    });
+  }
 });
 (function($){
   'use strict';
@@ -238,4 +306,7 @@ $(function() {
     });
   };
 })(jQuery);
+$(function () {
+});
 </script>
+
