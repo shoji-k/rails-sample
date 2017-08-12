@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   resources :photos
   get '/test', to: 'photos#test'
+  get '/all', to: 'photos#all'
   get 'users/new'
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'

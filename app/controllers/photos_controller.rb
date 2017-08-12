@@ -13,6 +13,11 @@ class PhotosController < ApplicationController
   # end
 
   def test
+    @allphotos = Photo.all
+  end
+
+  def all
+    @allphotos = Photo.all
   end
 
   def create

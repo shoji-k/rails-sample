@@ -1,0 +1,9 @@
+<%
+str = '<ol>'
+@allphotos.each_with_index do |p, i|
+  str += '<li>img: ' + p.name.to_s + '</li>'
+end
+str += '</ol>'
+%>
+$("#modal").html( '<div class="modal-dialog"> <div class="modal-content">' + '<%= str.html_safe %>' + '</div> </div>');
+$("#modal").modal("show")

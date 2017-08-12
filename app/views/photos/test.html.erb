@@ -1,4 +1,7 @@
 <button id="file_btn">file</button>
+<button id="show_btn">show</button>
+<%= link_to 'modal', all_path, remote: true, class: "btn btn-lg btn-primary" %>
+
 <%= form_for Photo.new, :html => { :multipart => true, :id => "fileupload"  } do |f| %>
 <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
 <div class="row fileupload-buttonbar">
@@ -25,7 +28,6 @@
     <input type="checkbox" class="toggle">
   </div>
 
-
   <div class="span5">
     <div id="progress" class="progress">
         <div class="progress-bar progress-bar-success"></div>
@@ -48,6 +50,21 @@
 </tbody>
 </table>
 <% end %>
+
+<h3>all</h3>
+<ol>
+<% @allphotos.each_with_index do |p, i| %>
+<li>
+id: <%= i %> img: <%= image_tag p.name, size: 16 %>
+</li>
+<% end %>
+</ol>
+
+<h3>all by json</h3>
+<ol id="photos">
+</ol>
+
+<div id="modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">aaa</div>
 
 <script type="text/javascript">
 $(function () {
@@ -77,6 +94,27 @@ $(function () {
     $('#photo_name').click();
   });;
 
+  $('#show_btn').on('click', function() {
+    get_all_photos();
+  });;
+
+  function get_all_photos() {
+    $.ajax({
+      type: 'GET',
+      cache: false,
+      url: '/photos',
+      dataType: 'json',
+      success: function(res){
+        console.log(res);
+        $.each(res['files'], function(i, p) {
+          $('#photos').append($('<li></li>').append(p.name));
+        });
+      },
+      error: function(res){
+        alert('エラーが発生しました');
+      }
+    });
+  }
 });
 </script>
 
