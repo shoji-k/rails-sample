@@ -6,7 +6,13 @@ App.chat = App.cable.subscriptions.create "ChatChannel",
     # Called when the subscription has been terminated by the server
 
   received: (data) ->
-    # Called when there's incoming data on the websocket for this channel
+    $('#messages').append '<li>' + data['message'] + '</li>'
 
-  speak: ->
-    @perform 'speak'
+  speak: (message) ->
+    @perform 'speak', message: message
+
+$(document).on 'keypress', '[data-behavior~=chat_input]', (event) ->
+  if event.keyCode is 13
+    App.chat.speak event.target.value
+    event.target.value = ''
+    event.preventDefault()
