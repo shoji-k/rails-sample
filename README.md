@@ -23,3 +23,7 @@ $ app/assets/javascripts/ckeditor/config.js
 
 need to install pandoc  
 e.g. sudo apt install pandoc  
+
+# action cable chat
+
+reference: [Ruby on Rails 5 でWebSockets通信を試してみる \- 株式会社BEFOOL](http://befool.co.jp/blog/8823-scholar/ror-web-sockets/)
