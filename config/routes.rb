@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'chat/show'
+
   resources :photos
   get '/test', to: 'photos#test'
   get '/all', to: 'photos#all'
