@@ -1,0 +1,18 @@
+<h1>ajax test</h1>
+
+<%= form_for Photo.new, :html => { :id => 'form' }, url: { action: 'create' }, remote: true do |f| %>
+  <%= f.text_area :name %>
+  <%= f.submit 'Update', id: 'update' %>
+<% end %>
+
+<button id="sub">test</button>
+
+<script>
+
+$('#sub').on('click', function() {
+  console.log('sub');
+  // $('#update').submit();
+  $('#update').click();
+});
+
+</script>
